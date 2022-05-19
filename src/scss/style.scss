@@ -1,56 +1,150 @@
 @import "preset";
 
 $headerHeight: 10rem;
+$sidebarWidth: 35rem;
+$margin: 2rem;
 
-main {
+$screen-mid: 768px;
+$screen-normal: 992px;
+$screen-large: 1200px;
+
+@mixin small {
+  @media (max-width: #{$screen-mid}) {
+    @content;
+  }
+}
+
+@mixin mid {
+  @media (min-width: #{$screen-mid}) {
+    @content;
+  }
+}
+
+@mixin normal {
+  @media (min-width: #{$screen-normal}) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: #{$screen-large}) {
+    @content;
+  }
+}
+header {
   width: 100%;
-  background-color: red;
-  min-height: 100vh;
-  font-size: 2rem;
+  height: $headerHeight;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: blue;
+  z-index: 3;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+}
+main {
+  overflow-x: auto;
+  width: 100%;
+  background-color: red;
+  height: 100%;
+  font-size: 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   padding: $headerHeight 0 0 0;
 
-  header {
-    width: 100%;
-    height: $headerHeight;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: blue;
-    z-index: 3;
+  .content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  section {
+    justify-content: stretch;
+    align-items: stretch;
+    height: auto;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    max-width: 100rem;
 
-    article {
-      background-color: green;
-      width: 90%;
-      max-width: 100rem;
-      min-height: 50vh;
-      display: flex;
+    @include small {
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    }
+
+    @include mid {
+      flex-direction: column;
+    }
+
+    @include normal {
+      flex-direction: row;
+    }
+
+    @include large {
+      flex-direction: row;
+    }
+
+    .article-wrapper {
+      background-color: cyan;
+      width: 100%;
+      padding: $margin;
+      .article {
+        height: 40vh;
+        background-color: green;
+        margin: 0 0 $margin 0;
+      }
+
+      .author {
+        height: 10vh;
+        background-color: green;
+        margin: 0 0 $margin 0;
+      }
+
+      .comment {
+        height: 20vh;
+        background-color: green;
+      }
+    }
+
+    aside {
+      background-color: green;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: $margin;
+
+      @include small {
+        width: 100%;
+      }
+
+      @include mid {
+        width: 100%;
+      }
+
+      @include normal {
+        width: $sidebarWidth;
+      }
+
+      @include large {
+        width: $sidebarWidth;
+      }
+
+      section {
+        height: 10rem;
+        width: 100%;
+        margin: 0 0 $margin 0;
+        background-color: yellow;
+        color: black;
+        &:last-child {
+          margin: 0 0 0 0;
+        }
+      }
     }
   }
 
   footer {
+    min-height: 10rem;
     width: 100%;
     background-color: orange;
-    min-height: 25rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
